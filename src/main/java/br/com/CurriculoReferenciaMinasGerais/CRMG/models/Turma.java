@@ -11,19 +11,22 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
-public class Objetivo implements Serializable {
+public class Turma implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    private String nome;
+    private String periodo;
     private String descricao;
-    private String codigo;
 
     @ManyToOne
-    @JoinColumn(name = "campoExperiencia_id")
-    private CampoExperiencia campoExperiencia;
+    @JoinColumn(name = "professor_id")
+    private Professor professor;
 
-    @OneToMany(mappedBy = "avaliacoes")
-    private List<Avaliacao> avaliacoes = new ArrayList<>();
+    @OneToMany(mappedBy = "alunos")
+    private List<Aluno> alunos = new ArrayList<>();
+
+
 }

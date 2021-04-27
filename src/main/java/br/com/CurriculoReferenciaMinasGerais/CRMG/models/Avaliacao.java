@@ -4,11 +4,10 @@ import br.com.CurriculoReferenciaMinasGerais.CRMG.models.enums.AvaliacaoEnum;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -22,11 +21,25 @@ public class Avaliacao implements Serializable {
     private Integer avaliacao;
     private String observacao;
 
+    @ManyToOne
+    @JoinColumn(name = "professor_id")
+    private Professor professor;
 
-    public Avaliacao(Integer id, AvaliacaoEnum avaliacao, String observacao) {
+    @ManyToOne
+    @JoinColumn(name = "aluno_id")
+    private Aluno aluno;
+
+    @ManyToOne
+    @JoinColumn(name = "objetivo_id")
+    private Objetivo objetivo;
+
+    public Avaliacao(Integer id, Integer avaliacao, String observacao, Professor professor, Aluno aluno, Objetivo objetivo) {
         this.id = id;
-        this.avaliacao = (avaliacao == null) ? null : avaliacao.getCodigo();
+        this.avaliacao = avaliacao;
         this.observacao = observacao;
+        this.professor = professor;
+        this.aluno = aluno;
+        this.objetivo = objetivo;
     }
 
     public AvaliacaoEnum getAvaliacao() {

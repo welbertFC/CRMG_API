@@ -1,14 +1,15 @@
 package br.com.CurriculoReferenciaMinasGerais.CRMG.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 @Data
@@ -25,4 +26,13 @@ public class Aluno implements Serializable {
     private String nomeResponsavel;
     private String telefoneResponsavel;
     private LocalDate dataNascimento;
+
+    @ManyToOne
+    @JoinColumn(name = "turma_id")
+    private Turma turma;
+
+    @OneToMany(mappedBy = "avaliacoes")
+    private List<Avaliacao> avaliacoes = new ArrayList<>();
+
+
 }
