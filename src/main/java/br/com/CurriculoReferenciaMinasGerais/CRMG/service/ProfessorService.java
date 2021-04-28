@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProfessorService {
@@ -16,7 +15,7 @@ public class ProfessorService {
     private ProfessorRepository professorRepository;
 
     public Professor findById(Integer id) {
-        Optional<Professor> professor = professorRepository.findById(id);
+        var professor = professorRepository.findById(id);
         return professor.orElseThrow(() -> new ObjectNotFoundException("Professor não encontrado id: " + id));
     }
 

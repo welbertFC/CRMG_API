@@ -16,25 +16,25 @@ public class ProfessorController {
     private ProfessorService professorService;
 
     @GetMapping
-    public ResponseEntity<List<Professor>> findAll(){
+    public ResponseEntity<List<Professor>> findAll() {
         List<Professor> professors = professorService.findAll();
         return ResponseEntity.ok().body(professors);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Professor> findById(@PathVariable Integer id){
+    public ResponseEntity<Professor> findById(@PathVariable Integer id) {
         Professor professor = professorService.findById(id);
         return ResponseEntity.ok().body(professor);
     }
 
     @PostMapping
-    public ResponseEntity<Professor> insert(@RequestBody Professor professor){
+    public ResponseEntity<Professor> insert(@RequestBody Professor professor) {
         Professor newProfessor = professorService.insert(professor);
         return ResponseEntity.ok().body(newProfessor);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Professor> update(@PathVariable Integer id, @RequestBody Professor professor){
+    public ResponseEntity<Professor> update(@PathVariable Integer id, @RequestBody Professor professor) {
         Professor updateProfessor = professorService.update(id, professor);
         return ResponseEntity.ok().body(updateProfessor);
     }

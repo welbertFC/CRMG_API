@@ -1,5 +1,6 @@
 package br.com.CurriculoReferenciaMinasGerais.CRMG.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -25,8 +26,15 @@ public class Turma implements Serializable {
     @JoinColumn(name = "professor_id")
     private Professor professor;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "turma")
     private List<Aluno> alunos = new ArrayList<>();
 
-
+    public Turma(Integer id, Turma turma) {
+        this.id = id;
+        this.nome = turma.getNome();
+        this.periodo = turma.getPeriodo();
+        this.descricao = turma.getDescricao();
+        this.professor = turma.getProfessor();
+    }
 }

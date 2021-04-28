@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EscolaService {
@@ -15,21 +14,20 @@ public class EscolaService {
     @Autowired
     private EscolaRepository escolaRepository;
 
-    public Escola insert(Escola escola){
-        escola.setId(null);
+    public Escola insert(Escola escola) {
         return escolaRepository.save(escola);
     }
 
-    public  Escola findById(Integer id){
-        Optional<Escola> escola = escolaRepository.findById(id);
+    public Escola findById(Integer id) {
+        var escola = escolaRepository.findById(id);
         return escola.orElseThrow(() -> new ObjectNotFoundException("Escola não encontrada id: " + id));
     }
 
-    public List<Escola> findAll(){
-        return  escolaRepository.findAll();
+    public List<Escola> findAll() {
+        return escolaRepository.findAll();
     }
 
-    public Escola update(Integer id, Escola escola){
+    public Escola update(Integer id, Escola escola) {
         findById(id);
         return escolaRepository.save(new Escola(id, escola));
     }

@@ -17,25 +17,25 @@ public class EscolaController {
 
     @PostMapping
     public ResponseEntity<Escola> insert(@RequestBody Escola escola) {
-        Escola newEscola = escolaService.insert(escola);
+        var newEscola = escolaService.insert(escola);
         return ResponseEntity.ok().body(newEscola);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Escola> findById(@PathVariable Integer id) {
-        Escola escola = escolaService.findById(id);
+        var escola = escolaService.findById(id);
         return ResponseEntity.ok().body(escola);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Escola> update(@PathVariable Integer id, @RequestBody Escola escola) {
-        Escola updateEscola = escolaService.update(id, escola);
+        var updateEscola = escolaService.update(id, escola);
         return ResponseEntity.ok().body(updateEscola);
     }
 
     @GetMapping
     public ResponseEntity<List<Escola>> findAll() {
-        List<Escola> escolas = escolaService.findAll();
+        var escolas = escolaService.findAll();
         return ResponseEntity.ok().body(escolas);
     }
 }

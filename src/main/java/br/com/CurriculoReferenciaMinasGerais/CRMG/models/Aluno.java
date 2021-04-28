@@ -1,6 +1,7 @@
 package br.com.CurriculoReferenciaMinasGerais.CRMG.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -28,12 +29,23 @@ public class Aluno implements Serializable {
     private LocalDate dataNascimento;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "turma_id")
     private Turma turma;
 
 
+    @JsonIgnore
     @OneToMany(mappedBy = "avaliacao")
     private List<Avaliacao> avaliacoes = new ArrayList<>();
 
-
+    public Aluno(Integer id, Aluno aluno) {
+        this.id = id;
+        this.nome = aluno.getNome();
+        this.matricula = aluno.getMatricula();
+        this.sexo = aluno.getSexo();
+        this.nomeResponsavel = aluno.getNomeResponsavel();
+        this.telefoneResponsavel = aluno.getTelefoneResponsavel();
+        this.dataNascimento = aluno.getDataNascimento();
+        this.turma = aluno.getTurma();
+    }
 }
