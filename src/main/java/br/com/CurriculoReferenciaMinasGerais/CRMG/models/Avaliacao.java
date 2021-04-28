@@ -1,6 +1,7 @@
 package br.com.CurriculoReferenciaMinasGerais.CRMG.models;
 
 import br.com.CurriculoReferenciaMinasGerais.CRMG.models.enums.AvaliacaoEnum;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -30,6 +31,7 @@ public class Avaliacao implements Serializable {
     private Aluno aluno;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "objetivo_id")
     private Objetivo objetivo;
 
@@ -40,6 +42,16 @@ public class Avaliacao implements Serializable {
         this.professor = professor;
         this.aluno = aluno;
         this.objetivo = objetivo;
+    }
+
+    public Avaliacao(Integer id, Avaliacao avaliacao){
+        this.id = id;
+        this.avaliacao = avaliacao.getId();
+        this.observacao = avaliacao.getObservacao();
+        this.professor = avaliacao.getProfessor();
+        this.aluno = avaliacao.getAluno();
+        this.objetivo = avaliacao.getObjetivo();
+
     }
 
     public AvaliacaoEnum getAvaliacao() {
