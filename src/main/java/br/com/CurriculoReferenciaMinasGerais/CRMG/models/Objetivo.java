@@ -24,6 +24,6 @@ public class Objetivo implements Serializable {
     @JoinColumn(name = "campoExperiencia_id")
     private CampoExperiencia campoExperiencia;
 
-    @OneToMany(mappedBy = "avaliacoes")
+    @OneToMany(mappedBy = "objetivo")
     private List<Avaliacao> avaliacoes = new ArrayList<>();
 }

@@ -1,5 +1,6 @@
 package br.com.CurriculoReferenciaMinasGerais.CRMG.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -22,13 +23,28 @@ public class Escola extends Usuario implements Serializable {
     private String nomeEscola;
     private String endereco;
     private String diretor;
-    private String CNPJ;
+    private String cnpj;
 
     @ElementCollection
     @CollectionTable(name = "TELEFONE")
     private Set<String> telefones = new HashSet<>();
 
-    @OneToMany(mappedBy = "professores")
+    @JsonIgnore
+    @OneToMany(mappedBy = "escola")
     private List<Professor> professores = new ArrayList<>();
+
+    public Escola(Integer id, Escola escola) {
+        this.id = id;
+        this.nomeEscola = escola.getNomeEscola();
+        this.endereco = escola.getEndereco();
+        this.diretor = escola.getDiretor();
+        this.cnpj = escola.getCnpj();
+        this.telefones = escola.getTelefones();
+        super.setNome(escola.getNome());
+        super.setEmail(escola.getEmail());
+        super.setSenha(escola.getSenha());
+        super.setTipo(escola.getTipo());
+
+    }
 
 }

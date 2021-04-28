@@ -20,6 +20,6 @@ public class CampoExperiencia implements SecureRandomParameters {
 
     private String nome;
 
-    @OneToMany(mappedBy = "objetivos")
+    @OneToMany(mappedBy = "campoExperiencia")
     private List<Objetivo> objetivos = new ArrayList<>();
 }

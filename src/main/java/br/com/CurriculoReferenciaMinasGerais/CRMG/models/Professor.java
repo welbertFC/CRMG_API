@@ -1,6 +1,5 @@
 package br.com.CurriculoReferenciaMinasGerais.CRMG.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -27,12 +26,11 @@ public class Professor extends Usuario implements Serializable {
     @JoinColumn(name = "escola_id")
     private Escola escola;
 
-    @OneToMany(mappedBy = "turmas")
+    @OneToMany(mappedBy = "professor")
     private List<Turma> turmas = new ArrayList<>();
 
-    @OneToMany(mappedBy = "avaliacoes")
+    @OneToMany(mappedBy = "professor")
     private List<Avaliacao> avaliacoes = new ArrayList<>();
-
 
 
 }

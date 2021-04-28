@@ -31,7 +31,8 @@ public class Aluno implements Serializable {
     @JoinColumn(name = "turma_id")
     private Turma turma;
 
-    @OneToMany(mappedBy = "avaliacoes")
+
+    @OneToMany(mappedBy = "avaliacao")
     private List<Avaliacao> avaliacoes = new ArrayList<>();
 
 

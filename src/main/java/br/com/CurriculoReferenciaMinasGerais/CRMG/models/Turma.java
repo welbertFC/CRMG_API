@@ -25,7 +25,7 @@ public class Turma implements Serializable {
     @JoinColumn(name = "professor_id")
     private Professor professor;
 
-    @OneToMany(mappedBy = "alunos")
+    @OneToMany(mappedBy = "turma")
     private List<Aluno> alunos = new ArrayList<>();
 
 
