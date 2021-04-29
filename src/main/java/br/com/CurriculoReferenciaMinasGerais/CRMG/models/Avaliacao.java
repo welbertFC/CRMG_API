@@ -35,9 +35,9 @@ public class Avaliacao implements Serializable {
     @JoinColumn(name = "objetivo_id")
     private Objetivo objetivo;
 
-    public Avaliacao(Integer id, Integer avaliacao, String observacao, Professor professor, Aluno aluno, Objetivo objetivo) {
+    public Avaliacao(Integer id, AvaliacaoEnum avaliacao, String observacao, Professor professor, Aluno aluno, Objetivo objetivo) {
         this.id = id;
-        this.avaliacao = avaliacao;
+        this.avaliacao = (avaliacao == null) ? null : avaliacao.getCodigo();
         this.observacao = observacao;
         this.professor = professor;
         this.aluno = aluno;
@@ -46,7 +46,7 @@ public class Avaliacao implements Serializable {
 
     public Avaliacao(Integer id, Avaliacao avaliacao){
         this.id = id;
-        this.avaliacao = avaliacao.getId();
+        this.avaliacao = avaliacao.getAvaliacao().getCodigo();
         this.observacao = avaliacao.getObservacao();
         this.professor = avaliacao.getProfessor();
         this.aluno = avaliacao.getAluno();
@@ -58,8 +58,8 @@ public class Avaliacao implements Serializable {
         return AvaliacaoEnum.toEnum(avaliacao);
     }
 
-    public void setAvaliacao(AvaliacaoEnum avaliacao) {
-        this.avaliacao = avaliacao.getCodigo();
+    public void setAvaliacao(Integer avaliacao) {
+        this.avaliacao = avaliacao;
     }
 
 

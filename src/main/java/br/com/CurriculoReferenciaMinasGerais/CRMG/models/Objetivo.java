@@ -1,5 +1,6 @@
 package br.com.CurriculoReferenciaMinasGerais.CRMG.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,6 +22,7 @@ public class Objetivo implements Serializable {
     private String codigo;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "campoExperiencia_id")
     private CampoExperiencia campoExperiencia;
 
