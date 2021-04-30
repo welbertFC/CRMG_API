@@ -1,6 +1,7 @@
 package br.com.CurriculoReferenciaMinasGerais.CRMG.controller;
 
 import br.com.CurriculoReferenciaMinasGerais.CRMG.models.Professor;
+import br.com.CurriculoReferenciaMinasGerais.CRMG.models.dto.NovoProfessorDTO;
 import br.com.CurriculoReferenciaMinasGerais.CRMG.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ public class ProfessorController {
     }
 
     @PostMapping
-    public ResponseEntity<Professor> insert(@RequestBody Professor professor) {
+    public ResponseEntity<Professor> insert(@RequestBody NovoProfessorDTO professor) {
         Professor newProfessor = professorService.insert(professor);
         return ResponseEntity.ok().body(newProfessor);
     }
