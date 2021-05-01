@@ -1,6 +1,7 @@
 package br.com.CurriculoReferenciaMinasGerais.CRMG.service;
 
 import br.com.CurriculoReferenciaMinasGerais.CRMG.models.Professor;
+import br.com.CurriculoReferenciaMinasGerais.CRMG.models.dto.ListaProfessorDTO;
 import br.com.CurriculoReferenciaMinasGerais.CRMG.models.dto.NovoProfessorDTO;
 import br.com.CurriculoReferenciaMinasGerais.CRMG.repository.ProfessorRepository;
 import br.com.CurriculoReferenciaMinasGerais.CRMG.util.exception.ObjectNotFoundException;
@@ -18,9 +19,11 @@ public class ProfessorService {
     @Autowired
     private EscolaService escolaService;
 
-    public Professor findById(Integer id) {
+    public ListaProfessorDTO findById(Integer id) {
         var professor = professorRepository.findById(id);
-        return professor.orElseThrow(() -> new ObjectNotFoundException("Professor não encontrado id: " + id));
+        professor.orElseThrow(() -> new ObjectNotFoundException("Professor não encontrado id: " + id));
+        var professorDTO = new ListaProfessorDTO(professor);
+        return professorDTO;
     }
 
     public List<Professor> findAll() {

@@ -1,6 +1,7 @@
 package br.com.CurriculoReferenciaMinasGerais.CRMG.controller;
 
 import br.com.CurriculoReferenciaMinasGerais.CRMG.models.Professor;
+import br.com.CurriculoReferenciaMinasGerais.CRMG.models.dto.ListaProfessorDTO;
 import br.com.CurriculoReferenciaMinasGerais.CRMG.models.dto.NovoProfessorDTO;
 import br.com.CurriculoReferenciaMinasGerais.CRMG.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,8 @@ public class ProfessorController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Professor> findById(@PathVariable Integer id) {
-        Professor professor = professorService.findById(id);
+    public ResponseEntity<ListaProfessorDTO> findById(@PathVariable Integer id) {
+        var professor = professorService.findById(id);
         return ResponseEntity.ok().body(professor);
     }
 
