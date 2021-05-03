@@ -1,8 +1,7 @@
 package br.com.CurriculoReferenciaMinasGerais.CRMG.service;
 
 import br.com.CurriculoReferenciaMinasGerais.CRMG.models.Professor;
-import br.com.CurriculoReferenciaMinasGerais.CRMG.models.dto.ListaProfessorDTO;
-import br.com.CurriculoReferenciaMinasGerais.CRMG.models.dto.NovoProfessorDTO;
+import br.com.CurriculoReferenciaMinasGerais.CRMG.models.dto.ProfessorDTO;
 import br.com.CurriculoReferenciaMinasGerais.CRMG.repository.ProfessorRepository;
 import br.com.CurriculoReferenciaMinasGerais.CRMG.service.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,28 +19,30 @@ public class ProfessorService {
     @Autowired
     private EscolaService escolaService;
 
-    public ListaProfessorDTO findById(Integer id) {
+    public ProfessorDTO findById(Integer id) {
         var professor = professorRepository.findById(id);
         professor.orElseThrow(() -> new ObjectNotFoundException("Professor não encontrado id: " + id));
-        var professorDTO = new ListaProfessorDTO(professor);
+        var professorDTO = new ProfessorDTO(professor);
         return professorDTO;
     }
 
-    public List<ListaProfessorDTO> findAll() {
+    public List<ProfessorDTO> findAll() {
         var professores = professorRepository.findAll();
         var listProfessorDTO = professores.stream().map(s ->
-                new ListaProfessorDTO(s)).collect(Collectors.toList());
+                new ProfessorDTO(s)).collect(Collectors.toList());
         return listProfessorDTO;
 
     }
 
-    public Professor insert(NovoProfessorDTO professor) {
+    public Professor insert(ProfessorDTO professor) {
         var escola = escolaService.findById(professor.getIdEscola());
         return professorRepository.save(new Professor(professor, escola));
     }
 
-    public Professor update(Integer id, Professor professor) {
+    public ProfessorDTO update(Integer id, ProfessorDTO professorDTO) {
         findById(id);
-        return professorRepository.save(new Professor(id, professor));
+        var escola = escolaService.findById(professorDTO.getIdEscola());
+        var professorAtualizado =  professorRepository.save(new Professor(id, professorDTO, escola));
+        return new ProfessorDTO(professorAtualizado);
     }
 }

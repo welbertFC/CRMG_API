@@ -3,25 +3,44 @@ package br.com.CurriculoReferenciaMinasGerais.CRMG.models.dto;
 import br.com.CurriculoReferenciaMinasGerais.CRMG.models.Professor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
 
 @Data
 @NoArgsConstructor
-public class ListaProfessorDTO {
+public class ProfessorDTO {
+
 
     private Integer id;
-    private String nome;
-    private String email;
-    private String senha;
-    private String cpfCnpj;
-    private String telefone;
-    private LocalDate dataNascimento;
-    private String escola;
 
-    public ListaProfessorDTO(Optional<Professor> professor) {
+    @NotBlank(message = "campo Nome é obrigatorio")
+    private String nome;
+
+    @Email(message = "Email Invalido")
+    @NotBlank(message = "Campo Email é obrigatorio")
+    private String email;
+
+    @NotBlank(message = "Campo senha é obrigatorio")
+    @NotNull(message = "Campo senha não pode ser nulo")
+    @Length(min = 6, max = 16, message = "Tamanho invalido")
+    private String senha;
+
+    private String cpfCnpj;
+
+    private String telefone;
+
+
+    private LocalDate dataNascimento;
+
+    @NotNull(message = "Campo obrigatorio")
+    private Integer idEscola;
+
+    public ProfessorDTO(Optional<Professor> professor) {
         this.id = professor.get().getId();
         this.nome = professor.get().getNome();
         this.email = professor.get().getEmail();
@@ -29,10 +48,10 @@ public class ListaProfessorDTO {
         this.cpfCnpj = professor.get().getCpfCnpj();
         this.telefone = professor.get().getTelefone();
         this.dataNascimento = professor.get().getDataNascimento();
-        this.escola = professor.get().getEscola().getNomeEscola();
+        this.idEscola = professor.get().getEscola().getId();
     }
 
-    public ListaProfessorDTO(Professor professor) {
+    public ProfessorDTO(Professor professor) {
         this.id = professor.getId();
         this.nome = professor.getNome();
         this.email = professor.getEmail();
@@ -40,6 +59,7 @@ public class ListaProfessorDTO {
         this.cpfCnpj = professor.getCpfCnpj();
         this.telefone = professor.getTelefone();
         this.dataNascimento = professor.getDataNascimento();
-        this.escola = professor.getEscola().getNomeEscola();
+        this.idEscola = professor.getEscola().getId();
     }
+
 }

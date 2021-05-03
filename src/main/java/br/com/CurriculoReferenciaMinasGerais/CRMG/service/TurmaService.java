@@ -1,8 +1,7 @@
 package br.com.CurriculoReferenciaMinasGerais.CRMG.service;
 
 import br.com.CurriculoReferenciaMinasGerais.CRMG.models.Turma;
-import br.com.CurriculoReferenciaMinasGerais.CRMG.models.dto.ListTurmaDTO;
-import br.com.CurriculoReferenciaMinasGerais.CRMG.models.dto.NovaTurmaDTO;
+import br.com.CurriculoReferenciaMinasGerais.CRMG.models.dto.TurmaDTO;
 import br.com.CurriculoReferenciaMinasGerais.CRMG.repository.ProfessorRepository;
 import br.com.CurriculoReferenciaMinasGerais.CRMG.repository.TurmaRepository;
 import br.com.CurriculoReferenciaMinasGerais.CRMG.service.exception.ObjectNotFoundException;
@@ -21,28 +20,33 @@ public class TurmaService {
     @Autowired
     private ProfessorRepository professorRepository;
 
-    public ListTurmaDTO findById(Integer id) {
+    public TurmaDTO findById(Integer id) {
         var turma = turmaRepository.findById(id);
         turma.orElseThrow(() -> new ObjectNotFoundException("Turma não encontrada id: " + id));
-        var turmaDTO = new ListTurmaDTO(turma);
+        var turmaDTO = new TurmaDTO(turma);
         return turmaDTO;
     }
 
-    public List<ListTurmaDTO> findAll() {
+    public List<TurmaDTO> findAll() {
        var turmas = turmaRepository.findAll();
        var turmasDto = turmas.stream().map(obj ->
-               new ListTurmaDTO(obj)).collect(Collectors.toList());
+               new TurmaDTO(obj)).collect(Collectors.toList());
        return turmasDto;
     }
 
-    public Turma insert(NovaTurmaDTO turma) {
+    public Turma insert(TurmaDTO turma) {
         var professorOptional = professorRepository.findById(turma.getProfessor());
         var professor = professorOptional.orElseThrow(
                 () -> new ObjectNotFoundException("Professor não existe id: " + turma.getProfessor()));
         return turmaRepository.save(new Turma(turma, professor));
     }
 
-    public Turma update(Integer id, Turma turma) {
-        return turmaRepository.save(new Turma(id, turma));
+    public TurmaDTO update(Integer id, TurmaDTO turmaDTO) {
+        findById(id);
+        var professorOptional = professorRepository.findById(turmaDTO.getProfessor());
+        var professor = professorOptional.orElseThrow(()
+                -> new ObjectNotFoundException("Professor não encontrado id: " + turmaDTO.getProfessor()));
+        var turmaAtualizado = turmaRepository.save(new Turma(id, turmaDTO, professor));
+        return new TurmaDTO(turmaAtualizado);
     }
 }

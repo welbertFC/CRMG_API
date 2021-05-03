@@ -1,6 +1,6 @@
 package br.com.CurriculoReferenciaMinasGerais.CRMG.models;
 
-import br.com.CurriculoReferenciaMinasGerais.CRMG.models.dto.NovoProfessorDTO;
+import br.com.CurriculoReferenciaMinasGerais.CRMG.models.dto.ProfessorDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -40,18 +40,18 @@ public class Professor implements Serializable {
     private List<Avaliacao> avaliacoes = new ArrayList<>();
 
 
-    public Professor(Integer id, Professor professor) {
+    public Professor(Integer id, ProfessorDTO professorDTO, Escola escola) {
         this.id = id;
-        this.nome = professor.getNome();
-        this.email = professor.getEmail();
-        this.senha = professor.getSenha();
-        this.cpfCnpj = professor.getCpfCnpj();
-        this.telefone = professor.getTelefone();
-        this.dataNascimento = professor.getDataNascimento();
-        this.escola = professor.getEscola();
+        this.nome = professorDTO.getNome();
+        this.email = professorDTO.getEmail();
+        this.senha = professorDTO.getSenha();
+        this.cpfCnpj = professorDTO.getCpfCnpj();
+        this.telefone = professorDTO.getTelefone();
+        this.dataNascimento = professorDTO.getDataNascimento();
+        this.escola = escola;
     }
 
-    public Professor(NovoProfessorDTO professorDTO, Escola escola) {
+    public Professor(ProfessorDTO professorDTO, Escola escola) {
         this.id = professorDTO.getId();
         this.nome = professorDTO.getNome();
         this.email = professorDTO.getEmail();

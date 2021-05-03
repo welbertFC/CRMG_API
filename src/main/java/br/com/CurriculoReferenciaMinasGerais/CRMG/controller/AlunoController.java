@@ -1,11 +1,14 @@
 package br.com.CurriculoReferenciaMinasGerais.CRMG.controller;
 
 import br.com.CurriculoReferenciaMinasGerais.CRMG.models.Aluno;
+import br.com.CurriculoReferenciaMinasGerais.CRMG.models.dto.AlunoDTO;
 import br.com.CurriculoReferenciaMinasGerais.CRMG.service.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -28,9 +31,13 @@ public class AlunoController {
     }
 
     @PostMapping
-    public ResponseEntity<Aluno> insert(@RequestBody Aluno aluno) {
+    public ResponseEntity<Aluno> insert(@Valid @RequestBody AlunoDTO aluno) {
         var newAluno = alunoService.insert(aluno);
-        return ResponseEntity.ok().body(newAluno);
+        var uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(newAluno.getId())
+                .toUri();
+        return ResponseEntity.created(uri).build();
     }
 
     @PutMapping("/{id}")
