@@ -4,7 +4,7 @@ import br.com.CurriculoReferenciaMinasGerais.CRMG.models.Professor;
 import br.com.CurriculoReferenciaMinasGerais.CRMG.models.dto.ListaProfessorDTO;
 import br.com.CurriculoReferenciaMinasGerais.CRMG.models.dto.NovoProfessorDTO;
 import br.com.CurriculoReferenciaMinasGerais.CRMG.repository.ProfessorRepository;
-import br.com.CurriculoReferenciaMinasGerais.CRMG.util.exception.ObjectNotFoundException;
+import br.com.CurriculoReferenciaMinasGerais.CRMG.service.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

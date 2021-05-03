@@ -1,4 +1,4 @@
-package br.com.CurriculoReferenciaMinasGerais.CRMG.util.exception;
+package br.com.CurriculoReferenciaMinasGerais.CRMG.service.exception;
 
 public class ObjectNotFoundException extends RuntimeException {
 

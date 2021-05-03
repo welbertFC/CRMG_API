@@ -7,7 +7,10 @@ import br.com.CurriculoReferenciaMinasGerais.CRMG.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -30,9 +33,13 @@ public class ProfessorController {
     }
 
     @PostMapping
-    public ResponseEntity<Professor> insert(@RequestBody NovoProfessorDTO professor) {
+    public ResponseEntity<Professor> insert(@Valid @RequestBody NovoProfessorDTO professor) {
         Professor newProfessor = professorService.insert(professor);
-        return ResponseEntity.ok().body(newProfessor);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(newProfessor.getId())
+                .toUri();
+        return ResponseEntity.created(uri).build();
     }
 
     @PutMapping("/{id}")

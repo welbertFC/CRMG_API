@@ -2,7 +2,7 @@ package br.com.CurriculoReferenciaMinasGerais.CRMG.service;
 
 import br.com.CurriculoReferenciaMinasGerais.CRMG.models.CampoExperiencia;
 import br.com.CurriculoReferenciaMinasGerais.CRMG.repository.CampoExperienciaRepository;
-import br.com.CurriculoReferenciaMinasGerais.CRMG.util.exception.ObjectNotFoundException;
+import br.com.CurriculoReferenciaMinasGerais.CRMG.service.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

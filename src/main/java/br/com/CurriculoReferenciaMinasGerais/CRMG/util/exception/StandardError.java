@@ -1,4 +1,4 @@
-package br.com.CurriculoReferenciaMinasGerais.CRMG.util;
+package br.com.CurriculoReferenciaMinasGerais.CRMG.util.exception;
 
 import lombok.Data;
 
