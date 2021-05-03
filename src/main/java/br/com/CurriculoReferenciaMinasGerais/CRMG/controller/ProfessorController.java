@@ -21,8 +21,8 @@ public class ProfessorController {
     private ProfessorService professorService;
 
     @GetMapping
-    public ResponseEntity<List<Professor>> findAll() {
-        List<Professor> professors = professorService.findAll();
+    public ResponseEntity<List<ListaProfessorDTO>> findAll() {
+        List<ListaProfessorDTO> professors = professorService.findAll();
         return ResponseEntity.ok().body(professors);
     }
 

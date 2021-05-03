@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProfessorService {
@@ -26,8 +27,12 @@ public class ProfessorService {
         return professorDTO;
     }
 
-    public List<Professor> findAll() {
-        return professorRepository.findAll();
+    public List<ListaProfessorDTO> findAll() {
+        var professores = professorRepository.findAll();
+        var listProfessorDTO = professores.stream().map(s ->
+                new ListaProfessorDTO(s)).collect(Collectors.toList());
+        return listProfessorDTO;
+
     }
 
     public Professor insert(NovoProfessorDTO professor) {

@@ -1,6 +1,8 @@
 package br.com.CurriculoReferenciaMinasGerais.CRMG.controller;
 
 import br.com.CurriculoReferenciaMinasGerais.CRMG.models.Turma;
+import br.com.CurriculoReferenciaMinasGerais.CRMG.models.dto.ListTurmaDTO;
+import br.com.CurriculoReferenciaMinasGerais.CRMG.models.dto.NovaTurmaDTO;
 import br.com.CurriculoReferenciaMinasGerais.CRMG.service.TurmaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,19 +18,19 @@ public class TurmaController {
     private TurmaService turmaService;
 
     @GetMapping
-    public ResponseEntity<List<Turma>> findAll() {
+    public ResponseEntity<List<ListTurmaDTO>> findAll() {
         var turma = turmaService.findAll();
         return ResponseEntity.ok().body(turma);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Turma> findById(@PathVariable Integer id) {
+    public ResponseEntity<ListTurmaDTO> findById(@PathVariable Integer id) {
         var turma = turmaService.findById(id);
         return ResponseEntity.ok().body(turma);
     }
 
     @PostMapping
-    public ResponseEntity<Turma> insert(@RequestBody Turma turma) {
+    public ResponseEntity<Turma> insert(@RequestBody NovaTurmaDTO turma) {
         var newTurma = turmaService.insert(turma);
         return ResponseEntity.ok().body(newTurma);
     }

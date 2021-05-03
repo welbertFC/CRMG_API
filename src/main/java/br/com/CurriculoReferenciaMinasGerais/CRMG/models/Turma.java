@@ -1,5 +1,6 @@
 package br.com.CurriculoReferenciaMinasGerais.CRMG.models;
 
+import br.com.CurriculoReferenciaMinasGerais.CRMG.models.dto.NovaTurmaDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,5 +37,13 @@ public class Turma implements Serializable {
         this.periodo = turma.getPeriodo();
         this.descricao = turma.getDescricao();
         this.professor = turma.getProfessor();
+    }
+
+    public Turma(NovaTurmaDTO novaTurmaDTO, Professor professor) {
+        this.id = novaTurmaDTO.getId();
+        this.nome = novaTurmaDTO.getNome();
+        this.periodo = novaTurmaDTO.getPeriodo();
+        this.descricao = novaTurmaDTO.getDescricao();
+        this.professor = professor;
     }
 }

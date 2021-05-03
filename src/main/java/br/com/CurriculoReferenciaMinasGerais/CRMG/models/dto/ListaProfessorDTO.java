@@ -32,5 +32,14 @@ public class ListaProfessorDTO {
         this.escola = professor.get().getEscola().getNomeEscola();
     }
 
-
+    public ListaProfessorDTO(Professor professor) {
+        this.id = professor.getId();
+        this.nome = professor.getNome();
+        this.email = professor.getEmail();
+        this.senha = professor.getSenha();
+        this.cpfCnpj = professor.getCpfCnpj();
+        this.telefone = professor.getTelefone();
+        this.dataNascimento = professor.getDataNascimento();
+        this.escola = professor.getEscola().getNomeEscola();
+    }
 }

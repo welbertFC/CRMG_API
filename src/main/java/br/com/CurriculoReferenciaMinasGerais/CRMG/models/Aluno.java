@@ -29,7 +29,7 @@ public class Aluno implements Serializable {
     private LocalDate dataNascimento;
 
     @ManyToOne
-    @JsonBackReference
+    @JsonIgnore
     @JoinColumn(name = "turma_id")
     private Turma turma;
 
