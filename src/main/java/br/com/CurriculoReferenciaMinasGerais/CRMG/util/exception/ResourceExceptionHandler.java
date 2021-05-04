@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Calendar;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {
@@ -20,11 +23,12 @@ public class ResourceExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<StandardError> validation(MethodArgumentNotValidException e, HttpServletRequest request){
-        ValidationError error = new ValidationError(HttpStatus.BAD_REQUEST.value(), "Erro de Validação", e.getMessage(), System.currentTimeMillis(), request.getRequestURI());
-        for (FieldError x : e.getFieldErrors()){
-            error.addError(x.getField(), x.getDefaultMessage());
-        }
+    public ResponseEntity<StandardError<List<String>>> validation(MethodArgumentNotValidException e, HttpServletRequest request){
+        StandardError<List<String>> error = new StandardError(
+                HttpStatus.BAD_REQUEST.value(),
+                e.getBindingResult().getAllErrors().stream().map(objectError -> objectError.getDefaultMessage()).collect(Collectors.toList()),
+                "Erro de validação", Calendar.getInstance().getTimeInMillis(),
+                request.getRequestURI());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 }
